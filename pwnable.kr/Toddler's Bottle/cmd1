@@ -1,6 +1,5 @@
-> **Problem**  
-  
 <blockquote>
+**Problem**
   - After seeing the cmd1.c source code i understand that our argument can't contain:"flag","sh","tmp".  
   - Also <putenv("PATH=/thankyouverymuch")> sets the environment to absolute PATH in root directory which we don't any access to write.
 </blockquote>
