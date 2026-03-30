@@ -5,7 +5,8 @@
 >		1. init_ABCDEFG()=> this initializes random int and assigns thems to variables a,b,c,d,e,f,g.  
 >		2. ropme()=> this is the interesting function.
 ><img width="1068" alt="ropme()" src="https://github.com/user-attachments/assets/1dae450d-daa6-442d-aa53-10e5dc4a4d54" />
->	-as we can see if our input of "How many EXP did you earned? : " matches with the sum the flag is printed.
+>
+>	- as we can see if our input of "How many EXP did you earned? : " matches with the sum the flag is printed.
 
 
 ---
