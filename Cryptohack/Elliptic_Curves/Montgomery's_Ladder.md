@@ -17,6 +17,7 @@ Output: [k]P
 </pre>
 We have to find the x-coordinate of Q, where Q = [0x1337c0decafe] G.
 </blockquote>
+
 ---
 
 <blockquote>
