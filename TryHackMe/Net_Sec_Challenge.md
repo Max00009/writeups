@@ -21,6 +21,6 @@
   <pre>
     $  nmap -sN -T3 -D RND:30 10.48.134.245
   </pre>
-  which gave me the flag.
+  which gave me the flag:<br>
 <img width="720" alt="image" src="https://github.com/user-attachments/assets/4b7b0642-861c-43da-a9fb-c0348e695226" />
 
