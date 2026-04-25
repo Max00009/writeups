@@ -111,4 +111,31 @@
 	<br><img width="1467" alt="image" src="https://github.com/user-attachments/assets/5861a791-3a97-439f-a657-3d0822cd6ab0" /><br>
 	- After logging in with our new password we get the flag:<br>
 	<br><img width="1452" alt="image" src="https://github.com/user-attachments/assets/64a6108a-8f27-4265-9898-8d70482fe81f" /><br>
+	- In this page we can see command execution panel.<br>
+	- But there are two problems.<br>
+		1. we are automatically logged out after every few seconds.<br>
+		2. we are not allowed to run any commands except ls:<br>
+		<br><img width="1238" alt="image" src="https://github.com/user-attachments/assets/d1d463ce-d4ae-4d29-a69e-c797a6b5e13f"<br>
+		<br><img width="1327" alt="image" src="https://github.com/user-attachments/assets/2489fe3e-aac4-4b41-b062-32124888eea1"<br>
+	- First I thought if i change the 'persistentSession' cookie value from 'no' to 'yes' then i can prevent automatic log out.But that didn't work.<br>
+	- Upon seeing the page source code we can see that the 'persistentSession' cookie value doesn't matter.If the cookie is not present then we are logged out.So we have to find a way to keep the cookie for longer.So i change the cookie expiry to a larger value.And it works.I am not logged out automatically.<br>
+	- On the network tab,upon inspecting a 'command not allowed' request we can see that a jwt token is being passed:<br>
+	<br><img width="1463" alt="image" src="https://github.com/user-attachments/assets/fb247de9-98a5-446f-9334-26ac392c2917" /><br>
+	- The decoded result of this jwt token:<br>
+	<br><img width="702" alt="image" src="https://github.com/user-attachments/assets/348b7ce3-8f44-436f-a148-ac92ca90aa4e" /><br>
+	- After changing the value of role from 'user' to 'admin' I encoded the jwt token back.And then edit the request to replace the old jwt token with this modified token and send the request.<br>
+	- But I get a Invalid token error:<br>
+	<br><img width="682" alt="image" src="https://github.com/user-attachments/assets/5622c86c-ce47-4a14-abfb-665c362bcbea" /><br>
+	- This is cause the jwt token is being signed by a secret key at '/var/www/mykey.key':<br>
+	<br><img width="507" alt="image" src="https://github.com/user-attachments/assets/ea554df6-8951-4e76-a804-2b70f457cbae" /><br>
+	- The only way to get a valid token is either by knowing the value of mykey.key or sign the token with a known key and change the 'kid' to point to that key instead of '/var/www/mykey.key'<br>
+	- After sending 'ls' command we saw a file named '188ade1.key':<br>
+	<br><img width="797" alt="image" src="https://github.com/user-attachments/assets/a7c8a785-c238-482b-bdc1-a204a721c21f" /><br>
+	- First I visit '/188ade1.key' to download the key.Then change the 'kid' to point to 'var/www/html/188ade1.key';change the role from 'user' to 'admin' and use the key value to sign our modified jwt token:<br>
+	<br><img width="531" alt="image" src="https://github.com/user-attachments/assets/25795661-947d-4b58-8361-ebb1df7f1b95" /><br>
+	<br><img width="727" alt="image" src="https://github.com/user-attachments/assets/8b9907bb-4cef-4154-b729-7a3f15c5ebfa" /><br>
+	<br><img width="716" alt="image" src="https://github.com/user-attachments/assets/7f315a7e-53ce-4a33-8448-5a38b06466f5" /><br>
+	- Then copy the encoded jwt, replace old jwt with this jwt and resend the request:<br>
+	<br><img width="1470" alt="image" src="https://github.com/user-attachments/assets/a153e5dc-5dd5-4a59-aab7-458544af70f0" /><br>
+	
 </blockquote>
