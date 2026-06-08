@@ -1,3 +1,16 @@
+/*
+Container Escape via Kernel Module Loading.
+container was granted the CAP_SYS_MODULE capability. This capability allows a process to insert code directly into the running kernel.
+so basically we will execute our code on host kernel.Not inside the container.
+
+
+let's check if CAP_SYS_MODULE is enabled
+capsh --print |grep 'cap_sys_module'
+now let's check the kernel version of Host Machine(containers share the host kernel)
+uname -r
+now let's see what kernel header we have in our container(the directory /lib/modules/... is part of the filesystem, which is isolated (or layered) in containers.)
+cd /lib/modules && ls
+*/
 #include <linux/kmod.h>
 #include <linux/module.h>
 
